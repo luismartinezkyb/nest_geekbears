@@ -12,7 +12,6 @@ async function bootstrap() {
     .setTitle('GeekBears Documentation')
     .setDescription('This APIs provides access to a shortener URL')
     .setVersion('1.0')
-    .addTag('shortener')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

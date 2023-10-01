@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Model } from 'mongoose';
 import { User } from 'src/users/schemas/user.schema';
 import { RegisterAuthDto } from './dto/register-auth.dto';

@@ -3,9 +3,11 @@ import { UrlsService } from './urls.service';
 import { Url } from './schemas/urls.schema';
 import { CreateUrlDto } from './dto/createUrl.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 
+@ApiTags('url')
 @ApiBearerAuth()
+@ApiUnauthorizedResponse({ description: 'Unauthorized Bearer Token Auth' })
 @Controller('urls')
 @UseGuards(JwtAuthGuard)
 export class UrlsController {
@@ -17,11 +19,15 @@ export class UrlsController {
   }
 
   @Post('/encode')
+  @ApiCreatedResponse({ description: 'The url has been encoded' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   encodeUrl(@Body() url: CreateUrlDto): Promise<Url> {
     return this.urlService.createUrl(url);
   }
 
   @Get(':short')
+  @ApiBadRequestResponse({ description: 'The Url not exists.' })
+  @ApiCreatedResponse({ description: 'The URL exists' })
   decodeUrl(@Param('short') short: string): Promise<Url> {
     return this.urlService.decodeUrl(short);
   }
