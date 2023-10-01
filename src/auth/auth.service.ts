@@ -10,6 +10,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { compare, hash } from 'bcrypt';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { JwtService } from '@nestjs/jwt';
+import { ResponseAuthDto } from './dto/response-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +30,7 @@ export class AuthService {
     return await this.userModel.create(user);
   }
 
-  async login(user: LoginAuthDto) {
+  async login(user: LoginAuthDto): Promise<ResponseAuthDto> {
     const { email, password } = user;
     const findUser = await this.userModel.findOne({ email });
     if (!findUser) {
@@ -43,7 +44,8 @@ export class AuthService {
     const payload = { id: findUser.id, email: findUser.email };
     const token = this.jwtAuthService.sign(payload);
     const data = {
-      user: findUser,
+      name: findUser.name,
+      email: findUser.email,
       token,
     };
     return data;
