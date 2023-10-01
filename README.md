@@ -24,13 +24,45 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
+Repositorio de code challenge para geekbears, se trata de un acortador de url donde necesitaremos de una bd uri de Mongodb(puede ser local), para poder hacer funcionar el proyecto
 ## Installation
+
 
 ```bash
 $ npm install
 ```
+
+## NOTE
+*crear .env en la raiz del proyecto*
+
+
+## Steps 
+1. Primeramente despues de instalar todas las dependencias necesitaremos de una base de datos Mongodb y su URI, para esto tendremos que dirigirnos a nuestro archiv que esta en la raiz del proyecto y crear un archivo .env o simplemente hacer `cp .env.example .env`
+
+Esto nos ayudara a generear nuestra JWT_SECRET y Nuestra DB_URI como lo siguiente, favor de usar el siguiente codigo como ejemplo y poder copiarlo al .env
+```
+DB_URI=mongodb://localhost/geekbears
+JWT_SECRET="secret?1234"
+```
+
+2. Una vez hecho eso ejecutamos el proyecto y todo deberia de correr con normalidad, ejecutamos `npm run start:dev`
+
+3. La documentación la podemos ver en la pestaña de `http://localhost:3000/docs/` donde todos los endpoints están documentados con la herramienta de Swagger
+
+
+## Objective
+
+Se trata de un acortador de url que funciona siempre y cuando te hayas registrado y logueado primeramente, una vez logueado el response te arrojará un token:
+
+Este token lo necesitaras poner como Bearer token dentro de la documentación de Swagger para poder hacer uso de el acortador
+
+Posterior a esto deberas de decodear urls para poder usarlas como acortador, con el bearer token y solo necesitas un parametro llamado `original`
+
+Te arrojara un parametro de tipo JSON y un atributo llamado `short` este lo ocuparas para decodear el url original
+
+
+
+
 
 ## Running the app
 
@@ -44,6 +76,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
 
 ## Test
 
